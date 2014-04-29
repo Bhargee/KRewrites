@@ -1,118 +1,5 @@
 require "modules/pattern-matching.k"
 
-/*!
-\title{FUN --- Untyped --- Environment}
-\author{Grigore Ro\c{s}u and Traian Florin \c{S}erb\u{a}nu\c{t}\u{a}
-        (\texttt{\{grosu,tserban2\}@illinois.edu})}
-\organization{University of Illinois at Urbana-Champaign}
-*/
-
-
-/*@ \section{Abstract}
-
-This is the \K semantic definition of the untyped FUN language.
-FUN is a pedagogical and research language that captures the essence
-of the functional programming paradigm, extended with several features
-often encountered in functional programming languages.
-Like many functional languages, FUN is an expression language, that
-is, everything, including the main program, is an expression.
-Functions can be declared anywhere and are first class values in the
-language.
-FUN is call-by-value here, but it has been extended (as student
-homework assignments) with other parameter-passing styles.
-To make it more interesting and to highlight some of \K's strengths,
-FUN includes the following features:
-\begin{itemize}
-\item The basic builtin data-types of integers, booleans and strings.
-\item Builtin lists, which can hold any elements, including other lists.
-Lists are enclosed in square brackets and their elements are
-comma-separated; e.g., \texttt{[1,2,3]}.
-\item User-defined data-types, by means of constructor terms.
-Constructor names start with a capital letter (while any other
-identifier in the language starts with a lowercase letter), and they
-can be followed by an arbitrary number of comma-separated arguments
-enclosed in parentheses; parentheses are not needed when the
-constructor takes no arguments.
-For example, \texttt{Pair(5,7)} is a constructor term holding two
-numbers, \texttt{Cons(1,Cons(2,Cons(3,Nil)))} is a list-like
-constructor term holding 3 elements, and
-\texttt{Tree(Tree(Leaf(1), Leaf(2)), Leaf(3))} is a tree-like
-constructor term holding 3 elements.
-In the untyped version of the FUN language, no type checking or
-inference is performed to ensure that the data constructors are used
-correctly.
-The execution will simply get stuck when they are misused.
-Moreover, since no type checking is performed, the data-types are not
-even declared in the untyped version of FUN.
- \item Functions and \texttt{let}/\texttt{letrec} binders can take
-multiple space-separated arguments, but these are desugared to
-ones that only take one argument, by currying.  For example, the
-expressions
-\begin{verbatim}
-fun x y -> x y
-let x y = y in x
-\end{verbatim}
-are desugared, respectively, into the following expressions:
-\begin{verbatim}
-fun x -> fun y -> x y
-let x = fun y -> y in x
-\end{verbatim}
-\item Functions can be defined using pattern matching over the
-available data-types.  For example, the program
-\begin{verbatim}
-letrec max = fun [h] -> h
-             |   [h|t] -> let x = max t
-                          in  if h > x then h else x
-in max [1, 3, 5, 2, 4, 0, -1, -5]
-\end{verbatim}
-defines a function \texttt{max} that calculates the maximum element of
-a non-empty list, and the function
-\begin{verbatim}
-letrec ack = fun Pair(0,n) -> n + 1
-             |   Pair(m,0) -> ack Pair(m - 1, 1)
-             |   Pair(m,n) -> ack Pair(m - 1, ack Pair(m, n - 1))
-in ack Pair(2,3)
-\end{verbatim}
-calculates the Ackermann function applied to a particular pair of numbers.
-Patterns can be nested.  Patterns can currently only be used in function
-definitions, and not directly in \texttt{let}/\texttt{letrec} binders.
-For example, this is not allowed:
-\begin{verbatim}
-letrec Pai(x,y) = Pair(1,2) in x+y
-\end{verbatim}
-But this is allowed:
-\begin{verbatim}
-let f Pair(x,y) = x+y in f Pair(1,2)
-\end{verbatim}
-because it is first reduced to
-\begin{verbatim}
-let f = fun Pair(x,y) -> x+y in f Pair(1,2)
-\end{verbatim}
-by uncurrying of the \texttt{let} binder, and pattern matching is
-allowed in function arguments.
-\item We include a \texttt{callcc} construct, for two reasons: first,
-several functional languages support this construct; second, some
-semantic frameworks have difficulties defining it.  Not \K.
-\item Finally, we include mutables by means of referencing an
-expression, getting the reference of a variable, dereferencing and
-assignment.  We include these for the same reasons as above: there are
-languages which have them, and they are not easy to define in some
-semantic frameworks.
-\end{itemize}
-Like in many other languages, some of FUN's constructs can be
-desugared into a smaller set of basic constructs.  We do that as usual,
-using macros, and then we only give semantics to the core constructs.
-
-\paragraph{Note:}{
-We recommend the reader to first consult the dynamic semantics of the
-
-LAMBDA++ language in the first part of the K Tutorial.
-To keep the comments below small and focused, we will not re-explain
-functional or \K features that have already been explained in there.}  */
-
-
-//@ \section{Syntax}
-
 module FUN-UNTYPED-SYNTAX
 
 /*@ FUN is an expression language.  The constructs below fall into
@@ -429,20 +316,20 @@ add more values later.  */
 
 //@ \subsection{Lookup}
 
-  rule <k> X:Name => V ...</k>
-       <env>... X |-> L ...</env>
-       <store>... L |-> V ...</store>
+  //rule <k> X:Name => V ...</k>
+   //    <env>... X |-> L ...</env>
+    //   <store>... L |-> V ...</store>
 
 
 //@ \subsection{Arithmetic expressions}
-  rule I1:Int * I2:Int => I1 *Int I2
+/*  rule I1:Int * I2:Int => I1 *Int I2
   rule I1:Int / I2:Int => I1 /Int I2 when I2 =/=K 0
   rule I1:Int % I2:Int => I1 %Int I2 when I2 =/=K 0
   rule I1:Int + I2:Int => I1 +Int I2
   rule S1:String ^ S2:String => S1 +String S2
   rule I1:Int - I2:Int => I1 -Int I2
 //  rule - I:Int => 0 -Int I
-  rule I1:Int < I2:Int => I1 <Int I2
+/*  rule I1:Int < I2:Int => I1 <Int I2
   rule I1:Int <= I2:Int => I1 <=Int I2
   rule I1:Int > I2:Int => I1 >Int I2
   rule I1:Int >= I2:Int => I1 >=Int I2
@@ -453,31 +340,18 @@ add more values later.  */
   rule false && _ => false
   rule true  || _ => true
   rule false || E => E
-
+*/
 
 //@ \subsection{Conditional}
 
-  rule if  true then E else _ => E
-  rule if false then _ else E => E
+//  rule if  true then E else _ => E
+ // rule if false then _ else E => E
 
 
 /*@ \subsection{Lists}
-
-We have already declared the syntactic list of expressions strict, so
-we can assume that all the elements that appear in a FUN list are
-evaluated.  The only thing left to do is to state that a list of
-values is a value itself, that is, that the list square-bracket
-construct is indeed a constructor, and to give the semantics of
-\texttt{cons}.  Since \texttt{cons} is a builtin function and is
-expected to take two arguments, we have to also state that
-\texttt{cons} itself is a value (specifically, a function/closure
-value, but we do not need that level of detail here), and also that
-\texttt{cons} applied to a value is a value (specifically, it would be
-a function/closure value that expects the second, list argument): */
-
   syntax Val ::= "cons" | "[" Vals "]"
-  rule isVal(cons V:Val) => true
-  rule cons V:Val [Vs:Vals] => [V,Vs]
+  /*rule isVal(cons V:Val) => true
+  rule cons V:Val [Vs:Vals] => [V,Vs]*/
 
 
 /*@ \subsection{Data Constructors}
@@ -519,10 +393,10 @@ making sure that the environment is properly recovered afterwards.
 If the first pattern does not match, then we drop it and thus move on
 to the next one. */
 
-  rule <k> closure(Rho, P->E | _) V:Val
+/*  rule <k> closure(Rho, P->E | _) V:Val
            => bindTo(getMatching(P,V)) ~> E ~> env(Rho') ...</k>
        <env> Rho' => Rho </env>  when isMatching(P,V)
-  rule closure(_, (P->_ | Cs:Cases => Cs)) V:Val  when notBool isMatching(P,V)
+  rule closure(_, (P->_ | Cs:Cases => Cs)) V:Val  when notBool isMatching(P,V)*/
 
 /*@ Besides the generic decomposition rules for patterns and values,
 we also want to allow \texttt{[head|tail]} matching for lists, so we add
@@ -531,46 +405,6 @@ the following custom pattern decomposition rule: */
   rule decomposeMatching(([H:Exp|T:Exp] => H,T),
                          ([V:Val,Vs:Vals] => V,[Vs]))
 
-
-/*@ \subsection{Let and Letrec}
-
-To highlight the similarities and differences between \texttt{let} and
-\texttt{letrec}, we prefer to give them direct semantics instead of
-to desugar them like in LAMBDA.  See the formal definitions of
-\texttt{bindTo}, \texttt{bind}, and \texttt{assignTo} at the end of
-this module.  Informally, \texttt{bindTo($\it Xs$,$\it Es$)} first
-evaluates the expressions ${\it Es}\in\textit{Exps}$ in the current
-environment (i.e., it is strict in its second argument), then it binds
-the variables in ${\it Xs}\in\textit{Names}$ to new locations and adds
-those bindings to the environment, and finally writes the values
-previously obtained after evaluating the expressions $\it Es$ to those
-new locations; \texttt{bind($\it Xs$)} does only the bindings of
-$\it Xs$ to new locations and adds those bindings to the environment;
-and \texttt{assignTo($\it Xs$,$\it Es$)} evaluates the expressions
-$\it Es$ in the current environment and then it writes the resulting
-values to the locations to which the variables $\it Xs$ are already
-bound to in the environment.
-
-Therefore, ``\texttt{let $\it Xs$=$\it Es$ in $\it E$}'' first
-evaluates $\it Es$ in the current environment, then adds new
-bindings for $\it Xs$ to fresh locations in the environment, then
-writes the values of $\it Es$ to those locations, and finally
-evaluates \textit{E} in the new environment, making sure that the
-environment is properly recovered after the evaluation of \textit{E}.
-On the other hand, \texttt{letrec} does the same things but in a
-different order: it first adds new bindings for $\it Xs$ to fresh
-locations in the environment, then it evaluates $\it Es$ in the new
-environment, then it writes the resulting values to their
-corresponding locations, and finally it evaluates \textit{E} and
-recovers the environment.  The crucial difference is that the
-expressions $\it Es$ now see the locations of the variables $\it Xs$
-in the environment, so if they are functions, which is typically the
-case with \texttt{letrec}, their closures will encapsulate in their
-environments the bindings of all the bound variables, including
-themselves (thus, we may have a closure value stored at location
-\textit{L}, whose environment contains a binding of the form
-$\textit{F} \mapsto \textit{L}$; this way, the closure can invoke
-itself). */
 
 /*  rule <k> let Bs in E
         => bindTo(names(Bs),exps(Bs)) ~> E ~> env(Rho) ...</k>
@@ -601,11 +435,11 @@ side effects due to assignments, was strict in the first argument.
 Once evaluated, its first argument is simply discarded: */
 
   syntax Name ::= "$x"
-  rule ref => fun $x -> & $x                                 [macro]
+/*  rule ref => fun $x -> & $x                                 [macro]
   rule <k> & X => L ...</k>  <env>... X |-> L ...</env>
   rule <k> @ L:Int => V:Val ...</k>  <store>... L |-> V ...</store>
   rule <k> L:Int := V:Val => V ...</k>  <store>... L |-> (_=>V) ...</store>
-  rule V:Val; E => E
+  rule V:Val; E => E*/
 
 /*@ The desugaring rule of \texttt{ref} (first rule above) works
 because \texttt{\&} takes a variable and returns its location (like in C).
@@ -638,8 +472,8 @@ the current execution context with its own and continues the execution
 normally. */
 
   syntax Val ::= "callcc" | cc(Map,K)
-  rule <k> (callcc V:Val => V cc(Rho,K)) ~> K </k>  <env> Rho </env>
-  rule <k> cc(Rho,K) V:Val ~> _ => V ~> K </k>  <env> _ => Rho </env>
+  /*rule <k> (callcc V:Val => V cc(Rho,K)) ~> K </k>  <env> Rho </env>
+  rule <k> cc(Rho,K) V:Val ~> _ => V ~> K </k>  <env> _ => Rho </env>*/
 
 
 //@ \subsection{Auxiliary operations}
@@ -652,9 +486,9 @@ language in the \K tutorial and many other languages provided with the
 way to achieve the benefits of tail recursion in \K.  */
 
   syntax K ::= env(Map)
-  rule (env(_) => .) ~> env(_)  [anywhere]
+/*  rule (env(_) => .) ~> env(_)  [anywhere]
   rule <k> _:Val ~> (env(Rho) => .) ...</k> <env> _ => Rho </env>
-    [structural]
+    [structural]*/
 
 /*@ \subsubsection{\texttt{bindTo}, \texttt{bind} and \texttt{assignTo}}
 
@@ -665,7 +499,7 @@ above. */
   syntax K ::= bindTo(Names,Exps)         [strict(2)]
              | bindTo(Map)
              | bind(Names)
-
+/*
   rule bindTo(Xs:Names,Vs:Vals) => bindTo(getMatching(Xs,Vs))
 
   rule bindTo(.Map) => .  [structural]
@@ -673,18 +507,18 @@ above. */
        <env> Rho => Rho[L/X] </env>
        <store>... . => L |-> V ...</store>
     when fresh(L:Int)  [structural]
-
-  rule bind(.Names) => .                  [structural]
+*/
+  /*rule bind(.Names) => .                  [structural]
   rule <k> bind(X:Name,Xs => Xs) ...</k>
        <env> Rho => Rho[L/X] </env>
-    when fresh(L:Int)                   [structural]
+    when fresh(L:Int)                   [structural]*/
 
   syntax K ::= assignTo(Names,Exps)  [strict(2)]
 
-  rule <k> assignTo(.Names,.Vals) => . ...</k>            [structural]
-  rule <k> assignTo((X:Name,Xs => Xs),(V:Val,Vs => Vs)) ...</k>
+  //rule <k> assignTo(.Names,.Vals) => . ...</k>            [structural]
+  /*rule <k> assignTo((X:Name,Xs => Xs),(V:Val,Vs => Vs)) ...</k>
        <env>... X |-> L ...</env>
-       <store>... . => L |-> V ...</store>              [structural]
+       <store>... . => L |-> V ...</store>              [structural]*/
 
 /*@ \subsubsection{Getters}
 
@@ -692,17 +526,21 @@ The following auxiliary operations extract the list of identifiers
 and of expressions in a binding, respectively. */
 
   syntax Names ::= names(Bindings)  [function]
-  rule names(.Bindings) => .Names
-  rule names(X:Name=_ and Bs) => (X,names(Bs))::Names
+  //rule names(.Bindings) => .Names
+  //rule names(X:Name=_ and Bs) => (X,names(Bs))::Names
 
   syntax Exps ::= exps(Bindings)  [function]
-  rule exps(.Bindings) => .Exps
-  rule exps(_:Name=E and Bs) => E,exps(Bs)
+  //rule exps(.Bindings) => .Exps
+  //rule exps(_:Name=E and Bs) => E,exps(Bs)
 
   //syntax Exp ::= "map"
   //rule (map (fun X -> E)) (map (fun Y -> G)) => (map fun Y -> E[X/G])
 
   rule ("map" (fun (X:Exp -> E:Exp))) ("map" (fun (Y:Exp -> G:Exp))) => 
-  ("map" (fun (Z:Exp -> E (G Z)))) when fresh(Z) [anywhere]
+  ("map" (fun (Z:Exp -> ((fun X -> E)((fun Y -> G) Z))))) when fresh(Z) [anywhere]
+
+  rule ("foldl" (fun (X:Exp -> (fun (Y:Exp -> E:Exp))))) ("map" (fun (Z:Exp -> G:Exp)))=>
+  ("foldl" (fun (O:Exp -> ((fun  X Y -> E) ((fun Z -> G) O))))) when fresh(O) [anywhere]
+
 
 endmodule
