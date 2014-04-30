@@ -1,0 +1,14 @@
+<T>
+    <k>
+        "map" (fun (#symExp(3) -> ((fun (d -> (d - 1))) ((fun (#symExp(2)
+           -> ((fun (y -> (y * 3))) ((fun (#symExp(1) -> ((fun (x -> (x + 2))
+          ) ((fun (x -> (x * 3))) #symExp(1))))) #symExp(2))))) #symExp(3))))
+          )
+    </k>
+    <store>
+        .Map
+    </store>
+    <env>
+        .Map
+    </env>
+</T>

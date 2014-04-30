@@ -1,0 +1,12 @@
+<T>
+    <k>
+        "foldl" (fun (#symExp(1) -> ((fun (x -> (fun (y -> (x + y))))) ((
+          fun (z -> (z - 1))) #symExp(1)))))
+    </k>
+    <store>
+        .Map
+    </store>
+    <env>
+        .Map
+    </env>
+</T>

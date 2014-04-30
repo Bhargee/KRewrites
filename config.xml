@@ -1,0 +1,12 @@
+<tests>
+  <test
+      definition="fun-untyped.k"
+      programs="tests/"
+      extension="fun"
+      results="." >
+      <all-programs>
+      </all-programs>
+  </test>
+
+</tests>
+
