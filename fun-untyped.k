@@ -537,10 +537,12 @@ and of expressions in a binding, respectively. */
   //rule (map (fun X -> E)) (map (fun Y -> G)) => (map fun Y -> E[X/G])
 
   rule ("map" (fun (X:Exp -> E:Exp))) ("map" (fun (Y:Exp -> G:Exp))) => 
-  ("map" (fun (Z:Exp -> ((fun X -> E)((fun Y -> G) Z))))) when fresh(Z) [anywhere]
+  ("map" (fun (Z:Exp -> ((fun X -> E)((fun Y -> G) Z))))) when fresh(Z)
+  [anywhere]
 
   rule ("foldl" (fun (X:Exp -> (fun (Y:Exp -> E:Exp))))) ("map" (fun (Z:Exp -> G:Exp)))=>
-  ("foldl" (fun (O:Exp -> ((fun  X Y -> E) ((fun Z -> G) O))))) when fresh(O) [anywhere]
+  ("foldl" (fun (O:Exp -> ((fun  X Y -> E) ((fun Z -> G) O))))) when fresh(O)
+  [anywhere]
 
 
 endmodule
