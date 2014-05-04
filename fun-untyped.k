@@ -541,5 +541,4 @@ and of expressions in a binding, respectively. */
   rule "map" (fun X:Exp -> E:Exp) "map" (fun Y:Exp -> G:Exp) => 
   ("map" (fun Z:Exp -> ((fun X -> E)((fun Y -> G) Z)))) when fresh(Z) [anywhere]
 
-
 endmodule
