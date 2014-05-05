@@ -263,9 +263,9 @@ so we can easily recognize them when we debug or trace the semantics. */
 
 /*@ We desugar the \texttt{try-catch} construct into callcc: */
 
-  syntax Name ::= "$k" | "$v"
+  /*syntax Name ::= "$k" | "$v"
   rule try E catch(X) E'
-    => callcc (fun $k -> (fun throw -> E)(fun X -> $k E'))   [macro]
+    => callcc (fun $k -> (fun throw -> E)(fun X -> $k E'))   [macro]*/
 
 //@ For uniformity, we reduce all types to their general form:
   rule 'TypeName(Tn:TypeName) => (.TypeVars) Tn              [macro]
@@ -280,6 +280,7 @@ so we can easily recognize them when we debug or trace the semantics. */
   syntax Exp ::= ComposeExp | MapExp | FoldExp
   syntax ComposeExp ::= Func 
                         | ComposeExp "-|" Func
+                        | ComposeExp "-|" "("ComposeExp")"
 
 endmodule
 
@@ -541,6 +542,7 @@ and of expressions in a binding, respectively. */
   //rule exps(_:Name=E and Bs) => E,exps(Bs)
 
   rule map A:ComposeExp map B:Func => map (A -| B) [anywhere]
+  rule map A:ComposeExp map B:ComposeExp => map (A -| (B)) [anywhere]
 
   rule fold A:ComposeExp map B:Func => fold (A -| B) [anywhere]
 
