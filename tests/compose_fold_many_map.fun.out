@@ -1,0 +1,12 @@
+<T>
+    <k>
+        fold (((( fun ((a b) -> (a + b)) )) -| (( fun (c -> (c + 1)) ))) 
+          -| (( fun (d -> (d -1)) )))
+    </k>
+    <store>
+        .Map
+    </store>
+    <env>
+        .Map
+    </env>
+</T>
