@@ -118,7 +118,7 @@ those programs anyway.  Function application is just concatenation of
 expressions, without worrying about type correctness.  Again, the type
 system will reject type-incorrect programs. */
 
-  syntax Func ::= "fun" Cases | "(" "fun" Cases")"
+  syntax Func ::= /*"fun" Cases |*/ "(" "fun" Cases")"
   syntax Exp ::= Func
                | Exp Exp                              [left]
 // NOTE: We would like eventually to also have Exp "(" Exps ")
@@ -234,7 +234,7 @@ a constructor for function types:  */
                   > '_:=_
                   > 'let_in_ 'letrec_in_ 'if_then_else_
                   > '_;_
-                  > 'fun_
+                  //> 'fun_
                   > 'datatype_=__
 
 
@@ -247,9 +247,9 @@ added them as new identifier constructs starting with the character $\$$,
 so we can easily recognize them when we debug or trace the semantics. */
 
   syntax Name ::= "$h" | "$t"
-  rule head => fun [$h|$t] -> $h                             [macro]
-  rule tail => fun [$h|$t] -> $t                             [macro]
-  rule null? => fun [.Exps] -> true | [$h|$t] -> false       [macro]
+  //rule head => fun [$h|$t] -> $h                             [macro]
+  //rule tail => fun [$h|$t] -> $t                             [macro]
+  //rule null? => fun [.Exps] -> true | [$h|$t] -> false       [macro]
 
 //ADDED RULES
 //@ Multiple-head list patterns desugar into successive one-head patterns:
@@ -258,8 +258,8 @@ so we can easily recognize them when we debug or trace the semantics. */
 
 //@ Uncurrying of multiple arguments in functions and binders:
 
-  rule P1 P2 -> E => P1 -> fun P2 -> E                       [macro]
-  rule F P = E => F = fun P -> E                             [macro]
+  //rule P1 P2 -> E => P1 -> fun P2 -> E                       [macro]
+  //rule F P = E => F = fun P -> E                             [macro]
 
 /*@ We desugar the \texttt{try-catch} construct into callcc: */
 
