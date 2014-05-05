@@ -1,0 +1,11 @@
+<T>
+    <k>
+        map ((( fun (a -> (a + 1)) )) -| (( fun (b -> (b * 3)) )))
+    </k>
+    <store>
+        .Map
+    </store>
+    <env>
+        .Map
+    </env>
+</T>
