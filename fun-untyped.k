@@ -118,7 +118,7 @@ those programs anyway.  Function application is just concatenation of
 expressions, without worrying about type correctness.  Again, the type
 system will reject type-incorrect programs. */
 
-  syntax Func ::= "fun" Cases
+  syntax Func ::= "fun" Cases | "(" "fun" Cases")"
   syntax Exp ::= Func
                | Exp Exp                              [left]
 // NOTE: We would like eventually to also have Exp "(" Exps ")
@@ -275,9 +275,11 @@ so we can easily recognize them when we debug or trace the semantics. */
 
   rule datatype T = TCs E => E                               [macro]
   /* rewrite syntax */
-  syntax Exp ::= ComposeExp
+  syntax MapExp ::= "map" ComposeExp
+  syntax FoldExp ::= "fold" ComposeExp
+  syntax Exp ::= ComposeExp | MapExp | FoldExp
   syntax ComposeExp ::= Func 
-                        | Func "-|" ComposeExp
+                        | ComposeExp "-|" Func
 
 endmodule
 
@@ -538,8 +540,8 @@ and of expressions in a binding, respectively. */
   //rule exps(.Bindings) => .Exps
   //rule exps(_:Name=E and Bs) => E,exps(Bs)
 
-  rule "map" A:Func "map" B:Func => "map" (A -| B) [anywhere]
+  rule map A:ComposeExp map B:Func => map (A -| B) [anywhere]
 
-  rule "map" (A:Func -| B:Func) "map" C:Func => "map" (A -| B -| C) [anywhere]
+  rule fold A:ComposeExp map B:Func => fold (A -| B) [anywhere]
 
 endmodule
