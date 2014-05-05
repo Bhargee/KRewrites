@@ -545,5 +545,6 @@ and of expressions in a binding, respectively. */
   rule map A:ComposeExp map B:ComposeExp => map (A -| (B)) [anywhere]
 
   rule fold A:ComposeExp map B:Func => fold (A -| B) [anywhere]
+  rule fold A:ComposeExp map B:ComposeExp => fold (A -| (B)) [anywhere]
 
 endmodule
