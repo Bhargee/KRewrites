@@ -1,7 +1,38 @@
+Search results:
+
+Solution 1:
 <T>
     <k>
-        map ((( fun (c -> (c % 3)) )) -| ( ((( fun (a -> (a + 2)) )) -| (
-          ( fun (b -> (b * 3)) ))) ))
+        map ( fun a -> (a + 2) ) -| ( fun b -> (b * 3) ) -| ( ( fun c -> (
+          c % 3) ) )
+    </k>
+    <store>
+        .Map
+    </store>
+    <env>
+        .Map
+    </env>
+</T>
+
+Solution 2:
+<T>
+    <k>
+        map ( fun a -> (a + 2) ) -| ( fun b -> (b * 3) ) -| ( fun c -> (c 
+          % 3) )
+    </k>
+    <store>
+        .Map
+    </store>
+    <env>
+        .Map
+    </env>
+</T>
+
+Solution 3:
+<T>
+    <k>
+        map ( fun c -> (c % 3) ) -| ( ( fun a -> (a + 2) ) -| ( fun b -> (
+          b * 3) ) )
     </k>
     <store>
         .Map

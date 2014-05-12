@@ -1,7 +1,164 @@
+Search results:
+
+Solution 1:
 <T>
     <k>
-        map (((( fun (a -> (a * 3)) )) -| (( fun (b -> (b - 2)) ))) -| ((
-           fun (c -> (c / 3)) )))
+        map ( fun a -> (a * 3) ) -| ( ( fun b -> (b - 2) ) ) -| ( ( fun c 
+          -> (c / 3) ) )
+    </k>
+    <store>
+        .Map
+    </store>
+    <env>
+        .Map
+    </env>
+</T>
+
+Solution 2:
+<T>
+    <k>
+        map ( fun a -> (a * 3) ) -| ( ( fun b -> (b - 2) ) ) -| ( fun c ->
+           (c / 3) )
+    </k>
+    <store>
+        .Map
+    </store>
+    <env>
+        .Map
+    </env>
+</T>
+
+Solution 3:
+<T>
+    <k>
+        map ( fun a -> (a * 3) ) -| ( fun b -> (b - 2) ) -| ( ( fun c -> (
+          c / 3) ) )
+    </k>
+    <store>
+        .Map
+    </store>
+    <env>
+        .Map
+    </env>
+</T>
+
+Solution 4:
+<T>
+    <k>
+        map ( fun a -> (a * 3) ) -| ( fun b -> (b - 2) ) -| ( fun c -> (c 
+          / 3) )
+    </k>
+    <store>
+        .Map
+    </store>
+    <env>
+        .Map
+    </env>
+</T>
+
+Solution 5:
+<T>
+    <k>
+        map ( fun b -> (b - 2) ) -| ( ( fun a -> (a * 3) ) ) -| ( ( fun c 
+          -> (c / 3) ) )
+    </k>
+    <store>
+        .Map
+    </store>
+    <env>
+        .Map
+    </env>
+</T>
+
+Solution 6:
+<T>
+    <k>
+        map ( fun b -> (b - 2) ) -| ( ( fun a -> (a * 3) ) ) -| ( fun c ->
+           (c / 3) )
+    </k>
+    <store>
+        .Map
+    </store>
+    <env>
+        .Map
+    </env>
+</T>
+
+Solution 7:
+<T>
+    <k>
+        map ( fun b -> (b - 2) ) -| ( fun a -> (a * 3) ) -| ( ( fun c -> (
+          c / 3) ) )
+    </k>
+    <store>
+        .Map
+    </store>
+    <env>
+        .Map
+    </env>
+</T>
+
+Solution 8:
+<T>
+    <k>
+        map ( fun b -> (b - 2) ) -| ( fun a -> (a * 3) ) -| ( fun c -> (c 
+          / 3) )
+    </k>
+    <store>
+        .Map
+    </store>
+    <env>
+        .Map
+    </env>
+</T>
+
+Solution 9:
+<T>
+    <k>
+        map ( fun c -> (c / 3) ) -| ( ( fun a -> (a * 3) ) -| ( ( fun b ->
+           (b - 2) ) ) )
+    </k>
+    <store>
+        .Map
+    </store>
+    <env>
+        .Map
+    </env>
+</T>
+
+Solution 10:
+<T>
+    <k>
+        map ( fun c -> (c / 3) ) -| ( ( fun a -> (a * 3) ) -| ( fun b -> (
+          b - 2) ) )
+    </k>
+    <store>
+        .Map
+    </store>
+    <env>
+        .Map
+    </env>
+</T>
+
+Solution 11:
+<T>
+    <k>
+        map ( fun c -> (c / 3) ) -| ( ( fun b -> (b - 2) ) -| ( ( fun a ->
+           (a * 3) ) ) )
+    </k>
+    <store>
+        .Map
+    </store>
+    <env>
+        .Map
+    </env>
+</T>
+
+Solution 12:
+<T>
+    <k>
+        map ( fun c -> (c / 3) ) -| ( ( fun b -> (b - 2) ) -| ( fun a -> (
+          a * 3) ) )
     </k>
     <store>
         .Map

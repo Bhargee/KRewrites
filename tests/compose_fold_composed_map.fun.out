@@ -1,7 +1,24 @@
+Search results:
+
+Solution 1:
 <T>
     <k>
-        fold ((( fun ((a b) -> (a + b)) )) -| ( ((( fun (c -> (c - 2)) ))
-           -| (( fun (d -> (d * 2)) ))) ))
+        fold ( fun (a b) -> (a + b) ) -| ( ( fun c -> (c - 2) ) -| ( fun d
+           -> (d * 2) ) )
+    </k>
+    <store>
+        .Map
+    </store>
+    <env>
+        .Map
+    </env>
+</T>
+
+Solution 2:
+<T>
+    <k>
+        fold ( fun c -> (c - 2) ) -| ( fun d -> (d * 2) ) -| ( ( fun (a b)
+           -> (a + b) ) )
     </k>
     <store>
         .Map

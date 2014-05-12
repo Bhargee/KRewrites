@@ -1,7 +1,24 @@
+Search results:
+
+Solution 1:
 <T>
     <k>
-        map (((( fun (a -> (a + 1)) )) -| (( fun (b -> (b - 1)) ))) -| ( 
-          ((( fun (c -> (c * 2)) )) -| (( fun (d -> (d - 3)) ))) ))
+        map ( fun a -> (a + 1) ) -| ( fun b -> (b - 1) ) -| ( ( fun c -> (
+          c * 2) ) -| ( fun d -> (d - 3) ) )
+    </k>
+    <store>
+        .Map
+    </store>
+    <env>
+        .Map
+    </env>
+</T>
+
+Solution 2:
+<T>
+    <k>
+        map ( fun c -> (c * 2) ) -| ( fun d -> (d - 3) ) -| ( ( fun a -> (
+          a + 1) ) -| ( fun b -> (b - 1) ) )
     </k>
     <store>
         .Map

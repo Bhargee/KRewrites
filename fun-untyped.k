@@ -275,12 +275,12 @@ so we can easily recognize them when we debug or trace the semantics. */
 
   rule datatype T = TCs E => E                               [macro]
   /* rewrite syntax */
-  syntax MapExp ::= "map" ComposeExp [strict, superheat]
-  syntax FoldExp ::= "fold" ComposeExp [strict, superheat]
+  syntax MapExp ::= "map" ComposeExp
+  syntax FoldExp ::= "fold" ComposeExp 
   syntax Exp ::= ComposeExp | MapExp | FoldExp
   syntax ComposeExp ::= Func 
-                        | ComposeExp "-|" Func [strict, superheat]
-                        | ComposeExp "-|" "("ComposeExp")" [strict, superheat]
+                        | ComposeExp "-|" Func 
+                        | ComposeExp "-|" "("ComposeExp")"
 
 endmodule
 
@@ -541,9 +541,30 @@ and of expressions in a binding, respectively. */
   //rule exps(.Bindings) => .Exps
   //rule exps(_:Name=E and Bs) => E,exps(Bs)
 
-  rule map A:ComposeExp map B:Func => map (A -| B) [supercool]
-  rule map A:ComposeExp map B:ComposeExp => map (A -| (B)) [supercool]
-  rule fold A:ComposeExp map B:Func => fold (A -| B) 
-  rule fold A:ComposeExp map B:ComposeExp => fold (A -| (B)) 
+  /* Map rules */
+  rule map A:Func map B:Func => map (A -| B) [transition, anywhere]
+  rule map A:Func map B:Func => map (B -| A) [transition, anywhere]
+
+  rule map A:ComposeExp map B:Func => map (A -| B) [transition, anywhere]
+  rule map A:ComposeExp map B:Func => map (B -| (A)) [transition, anywhere]
+
+  rule map A:Func map B:ComposeExp => map (A -| (B)) [transition,anywhere]
+  rule map A:Func map B:ComposeExp => map (B -| A) [transition,anywhere]
+
+  rule map A:ComposeExp map B:ComposeExp => map (A -| (B)) [transition, anywhere]
+  rule map A:ComposeExp map B:ComposeExp => map (B -| (A)) [transition,anywhere]
+
+  /* Fold rules */
+  rule fold A:Func map B:Func => fold (A -| B) [transition, anywhere]
+  rule fold A:Func map B:Func => fold (B -| A) [transition, anywhere]
+
+  rule fold A:ComposeExp map B:Func => fold (A -| B) [transition, anywhere]
+  rule fold A:ComposeExp map B:Func => fold (B -| (A)) [transition, anywhere]
+
+  rule fold A:ComposeExp map B:ComposeExp => fold (A -| (B)) [transition, anywhere]
+  rule fold A:ComposeExp map B:ComposeExp => fold (B -| (A)) [transition, anywhere]
+
+  rule fold A:ComposeExp B:ComposeExp => fold (A -| (B)) [transition, anywhere]
+  rule fold A:ComposeExp B:ComposeExp => fold (B -| (A)) [transition, anywhere]
 
 endmodule

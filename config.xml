@@ -5,6 +5,7 @@
       extension="fun"
       results="." >
       <all-programs>
+          <krun-option name='--search' />
       </all-programs>
   </test>
 
