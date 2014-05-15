@@ -1,0 +1,29 @@
+Search results:
+
+Solution 1:
+<T>
+    <k>
+        (((fold) (fun a -> (fun b -> (a + b)))) ((map) (fun c -> (c * 2)))
+          )
+    </k>
+    <store>
+        .Map
+    </store>
+    <env>
+        .Map
+    </env>
+</T>
+
+Solution 2:
+<T>
+    <k>
+        ((fold) ((fun a -> (fun b -> (a + b))) -| (fun c -> (c * 2))))
+          
+    </k>
+    <store>
+        .Map
+    </store>
+    <env>
+        .Map
+    </env>
+</T>

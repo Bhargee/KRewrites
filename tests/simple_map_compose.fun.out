@@ -3,46 +3,7 @@ Search results:
 Solution 1:
 <T>
     <k>
-        map ( fun a -> (a + 1) ) -| ( ( fun b -> (b * 3) ) )
-    </k>
-    <store>
-        .Map
-    </store>
-    <env>
-        .Map
-    </env>
-</T>
-
-Solution 2:
-<T>
-    <k>
-        map ( fun a -> (a + 1) ) -| ( fun b -> (b * 3) )
-    </k>
-    <store>
-        .Map
-    </store>
-    <env>
-        .Map
-    </env>
-</T>
-
-Solution 3:
-<T>
-    <k>
-        map ( fun b -> (b * 3) ) -| ( ( fun a -> (a + 1) ) )
-    </k>
-    <store>
-        .Map
-    </store>
-    <env>
-        .Map
-    </env>
-</T>
-
-Solution 4:
-<T>
-    <k>
-        map ( fun b -> (b * 3) ) -| ( fun a -> (a + 1) )
+        ((map) ((fun a -> a) -| (fun b -> b)))
     </k>
     <store>
         .Map

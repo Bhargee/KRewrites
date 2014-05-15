@@ -3,8 +3,7 @@ Search results:
 Solution 1:
 <T>
     <k>
-        fold ( fun (a b) -> (a + b) ) -| ( ( fun c -> (c - 2) ) -| ( fun d
-           -> (d * 2) ) )
+        ((map) (((fun a -> a) -| (fun b -> b)) -| (fun c -> c)))
     </k>
     <store>
         .Map
@@ -17,8 +16,7 @@ Solution 1:
 Solution 2:
 <T>
     <k>
-        fold ( fun c -> (c - 2) ) -| ( fun d -> (d * 2) ) -| ( ( fun (a b)
-           -> (a + b) ) )
+        ((map) ((fun a -> a) -| ((fun b -> b) -| (fun c -> c))))
     </k>
     <store>
         .Map

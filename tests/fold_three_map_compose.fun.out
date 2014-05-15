@@ -1,0 +1,57 @@
+Search results:
+
+Solution 1:
+<T>
+    <k>
+        (((((((fold) (fun a -> (fun b -> (a + b)))) ((map) (fun c -> (c * 
+          2)))) (map)) (fun d -> (d + 1))) (map)) (fun e -> (e * 4)))
+    </k>
+    <store>
+        .Map
+    </store>
+    <env>
+        .Map
+    </env>
+</T>
+
+Solution 2:
+<T>
+    <k>
+        (((((fold) ((fun a -> (fun b -> (a + b))) -| (fun c -> (c * 2)))) 
+          ((map) (fun d -> (d + 1)))) (map)) (fun e -> (e * 4)))
+    </k>
+    <store>
+        .Map
+    </store>
+    <env>
+        .Map
+    </env>
+</T>
+
+Solution 3:
+<T>
+    <k>
+        (((fold) (((fun a -> (fun b -> (a + b))) -| (fun c -> (c * 2))) -|
+           (fun d -> (d + 1)))) ((map) (fun e -> (e * 4))))
+    </k>
+    <store>
+        .Map
+    </store>
+    <env>
+        .Map
+    </env>
+</T>
+
+Solution 4:
+<T>
+    <k>
+        ((fold) ((((fun a -> (fun b -> (a + b))) -| (fun c -> (c * 2))) -|
+           (fun d -> (d + 1))) -| (fun e -> (e * 4))))
+    </k>
+    <store>
+        .Map
+    </store>
+    <env>
+        .Map
+    </env>
+</T>

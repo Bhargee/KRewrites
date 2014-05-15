@@ -3,8 +3,8 @@ Search results:
 Solution 1:
 <T>
     <k>
-        map ( fun a -> (a + 2) ) -| ( fun b -> (b * 3) ) -| ( ( fun c -> (
-          c % 3) ) )
+        ((map) ((((fun a -> a) -| (fun b -> b)) -| (fun c -> c)) -| (fun d
+           -> (d / 5))))
     </k>
     <store>
         .Map
@@ -17,8 +17,8 @@ Solution 1:
 Solution 2:
 <T>
     <k>
-        map ( fun a -> (a + 2) ) -| ( fun b -> (b * 3) ) -| ( fun c -> (c 
-          % 3) )
+        ((map) (((fun a -> a) -| ((fun b -> b) -| (fun c -> c))) -| (fun d
+           -> (d / 5))))
     </k>
     <store>
         .Map
@@ -31,8 +31,8 @@ Solution 2:
 Solution 3:
 <T>
     <k>
-        map ( fun c -> (c % 3) ) -| ( ( fun a -> (a + 2) ) -| ( fun b -> (
-          b * 3) ) )
+        ((map) (((fun a -> a) -| (fun b -> b)) -| ((fun c -> c) -| (fun d 
+          -> (d / 5)))))
     </k>
     <store>
         .Map
